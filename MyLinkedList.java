@@ -70,28 +70,80 @@ public class MyLinkedList {
      	}
     }
     
-    public void pushList(int value,MyLinkedList list){
+    public void pushList(int value,MyLinkedList mylist){
     	Node push=tail;
     	Node push1=null;
     	while(push.value!=value){
     		push=push.next;
     	}
     	push1=push.next;
-    	push.next=list.tail;
-        list.tail.prev=push;
+    	push.next=mylist.tail;
+        mylist.tail.prev=push;
+        mylist.tail=tail;
         while(push.next!=null)
         	push=push.next;
         push.next=push1;
-        if(push1!=null)
+        if(push1!=null){
         	push1.prev=push;
+        	head=push1;
+        	mylist.head=head;
+        }
+        else{
+        	head=push;
+        	mylist.head=head;
+        }
+        
     }
     
     
-    /*public void popList(int value){
-    	Node push=tail;
-    	Node push1;
-    	
+    public void popList(int value){
+    	Node push=head;
+    	Node push1=null;
+    	if(head.value==value){}
+    	else{	
+    		while(push.prev.value!=value){
+    			push1=push;
+    			push=push.prev;
+    		}
+    		if(push1!=null){
+    			push1.prev=push.prev;
+    			push.prev.next=push1;
+    			push.prev=null;
+    			push.next=null;
+    		}
+    		else{
+    			head=push.prev;
+    			head.next=null;
+    		}
+    	}
+    }
+    
+    
+    /*public void sortList(MyLinkedList myList){
+    	Node sort=myList.tail;
+    	Node swtch=null; 
+    	int min=myList.tail.value;
+    	Node beg=myList.tail;
+    	while(beg!=null){
+    		while(sort!=null){
+    			if(sort.value<min){
+    				min=sort.value;
+    				swtch=sort;
+    			}		
+    			sort=sort.next;
+    		}
+    		if(sort!=null)
+    			swtch.value=sort.value;
+    		beg.value=min;
+    		if(beg.next!=null){
+    			beg=beg.next;
+    			sort=beg;
+    			min=beg.value;
+    		
+    		}
+    	}
     }*/
+    
     
     public static void main(String[] args){
     	int numElem,elem,elem2;
@@ -108,6 +160,8 @@ public class MyLinkedList {
     		System.out.println("4.Udalit' element iz nachala");
     		System.out.println("5.Udalit' element iz konca");
     		System.out.println("6.Vstavit' podspisok");
+    		System.out.println("7.Udalit' podspisok");
+    		System.out.println("8.Otsortirovat' spisok");
     		System.out.println("0.Exit");
     		pick=scan.nextInt();
     		switch(pick){
@@ -130,7 +184,7 @@ public class MyLinkedList {
     				list.show();
     				System.out.println();
     				break;
-    			}
+    				}
     			case 3:{
     				System.out.print("Vvedite element dlya dobavleniya v konec:");
     				elem=scan.nextInt();
@@ -166,6 +220,27 @@ public class MyLinkedList {
     		    	list1.show();
     		    	System.out.println();
     		    	list.pushList(elem2,list1);
+    		    	list.show();
+    		    	break;
+    		    }
+    		    case 7:{
+    		    	System.out.print("Vvedite kolichestvo elementov,kotoroe hotite udalit':");
+    		    	numElem=scan.nextInt();
+    		    	System.out.print("Vvedite cifru,posle kotoroy hotite udalit' podstoku:");
+    		    	elem2=scan.nextInt();
+    		    	for(int i=0;i<numElem;i++)
+    		    		list.popList(elem2);
+    		    	list.show();
+    		    	System.out.println();
+    		    	break;
+    		    }
+    		    case 8:{
+    				list.sortList(list);
+    				list.show();
+    				System.out.println();
+    		    	break;
+    		    }
+    		    case 9:{
     		    	list.show();
     		    	System.out.println();
     		    	break;
