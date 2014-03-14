@@ -118,31 +118,28 @@ public class MyLinkedList {
     	}
     }
     
-    
-    /*public void sortList(MyLinkedList myList){
-    	Node sort=myList.tail;
-    	Node swtch=null; 
-    	int min=myList.tail.value;
-    	Node beg=myList.tail;
-    	while(beg!=null){
-    		while(sort!=null){
-    			if(sort.value<min){
-    				min=sort.value;
-    				swtch=sort;
-    			}		
-    			sort=sort.next;
+    public void sortList(){
+    	if(tail==null) 
+    		return;
+    	if(tail.next==null) 
+    		return;
+    	Node sort1=tail;
+    	while(sort1.next!=null)
+    		sort1=sort1.next;
+    	while(sort1!=null){
+    		Node sort2=tail;
+    		while(sort1!=sort2){
+    			if(sort2.value>sort2.next.value){
+    				int sortValue=sort2.value;
+    				sort2.value=sort2.next.value;
+    				sort2.next.value=sortValue;	
+    			}
+    			sort2=sort2.next;
     		}
-    		if(sort!=null)
-    			swtch.value=sort.value;
-    		beg.value=min;
-    		if(beg.next!=null){
-    			beg=beg.next;
-    			sort=beg;
-    			min=beg.value;
-    		
-    		}
+    		sort1=sort1.prev;
     	}
-    }*/
+    	return;
+    }
     
     
     public static void main(String[] args){
@@ -162,6 +159,7 @@ public class MyLinkedList {
     		System.out.println("6.Vstavit' podspisok");
     		System.out.println("7.Udalit' podspisok");
     		System.out.println("8.Otsortirovat' spisok");
+    		System.out.println("9.Pokazat' spisok");
     		System.out.println("0.Exit");
     		pick=scan.nextInt();
     		switch(pick){
@@ -221,6 +219,7 @@ public class MyLinkedList {
     		    	System.out.println();
     		    	list.pushList(elem2,list1);
     		    	list.show();
+    		    	System.out.println();
     		    	break;
     		    }
     		    case 7:{
@@ -235,7 +234,7 @@ public class MyLinkedList {
     		    	break;
     		    }
     		    case 8:{
-    				list.sortList(list);
+    				list.sortList();
     				list.show();
     				System.out.println();
     		    	break;
